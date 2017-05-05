@@ -1,0 +1,32 @@
+{
+  "name": "tracedux",
+  "version": "0.0.1",
+  "description": "Predictable state in request parameters",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliandavidmr/tracedux.git"
+  },
+  "keywords": [
+    "redux",
+    "express",
+    "params",
+    "states",
+    "watch"
+  ],
+  "author": "@juliandavidmr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juliandavidmr/tracedux/issues"
+  },
+  "homepage": "https://github.com/juliandavidmr/tracedux#readme",
+  "dependencies": {
+    "redux": "^3.6.0"
+  }
+}
