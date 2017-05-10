@@ -1,4 +1,4 @@
-# **Tracedux**
+# **Rex**
 
 Predictable state in request parameters
 
@@ -10,36 +10,40 @@ Predictable state in request parameters
  
 ## **Usage**
 
-Example of request:
-```url
+Request example:
+```
 http://localhost:3000/?id=1&name=julian&lastname=david&fk=1
 ```
 
-Then, with the following configuration file all query data will be `req.query`, `req.params`, `req.body` at the same time.
+The capture of arguments is dynamic, everything is based on the names of the parameters of each function:
 ```js
-var tracedux = require('../')
+var rex = require('../')
 
-var config = [{  
-  type: tracedux.constants.AUTO_PARAMS,
-  exec: function (id, name, lastname, fk) {
-    console.log(id, name, lastname, fk)
-    //=> 1 1 julian david 1
+var config = [{
+  type: rex.constants.AUTO_PARAMS,
+  exec: function (req, res, next, id, name, lastname, fk) {
+    console.log("Autoparams 1:", id, name, lastname, fk);
+    // => Autoparams 1: 1 julian david 1
+    res.send("Middleware")
   }
 }, {
-  type: tracedux.constants.AUTO_PARAMS,
-  exec: function (id, name, fk) {
-    console.log("Autoparams 2", arguments)
+  type: rex.constants.AUTO_PARAMS,
+  exec: function (req, res, next, token) {
+    console.log("Autoparams 2:", token);
+    res.send("Token: " + token)
   }
 }]
 
-tracedux.conf(config);
+rex.conf(config);
+
+module.exports = rex;
 ```
 
 Do you want to subscribe to the change of state?
 ```js
-let unsubscribe = store.subscribe(() =>
-  console.log("Changed:", store.getState())
-)
+rex.store.subscribe(() => {
+  console.log("Actual state:", rex.store.getState())
+})
 ```
 
 ## _**In development**._

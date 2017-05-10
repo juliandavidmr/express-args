@@ -7,9 +7,11 @@ var log = console.log;
 
 var store = redux.createStore(reducers, constants.LOGGER)
 
+/*
 let unsubscribe = store.subscribe(() =>
-  console.log("Estado cambiado:", store.getState(), '\n---')
+  console.log("Actual state:", store.getState())
 )
+*/
 
 var options_data;
 var tracers = {}
@@ -22,26 +24,24 @@ function defineTracers(params) {
   }
 }
 
+/**
+ * @param {function} req
+ * @param {function} res
+ * @param {function} next
+ */
 function app(req, res, next) {
-  // search names arguments : type AUTO_PARAMS
-  // log('Body', req.body)
-  // log('Params', req.params)
-  // log('Query', req.query)
   for (var key in constants) {
-    // console.log("TracerS 2:", JSON.stringify(tracers, null, 3))
-    // console.log("::::", constants[key], tracers[constants[key]], params, body);
     tracers[constants[key]].map(check => {
       if (check.type === constants.AUTO_PARAMS) {
-        store.dispatch(actions.boundAutoparams([req.params, req.body, req.query], check.exec, check.args, req, res))
+        var data = Object.assign({}, req.body, req.params, req.query);
+        store.dispatch(
+          actions.boundAutoparams(data, check.exec, check.args, req, res, next)
+        )
         // log(check)
       }
     })
   }
-
-  next()
 }
-
-// store.dispatch(actions.boundLogger('Aprender sobre acciones'))
 
 /**
  * @param {Array<any>} options
@@ -63,7 +63,6 @@ function conf(options) {
         it.args = args;
       }
       tracers[it.type].push(it);
-      // delete it.type;
     })
     // console.log("TracerS:", JSON.stringify(tracers, null, 3))
   }

@@ -21,13 +21,26 @@ function boundLogger(text) {
   }
 }
 
-function boundAutoparams(array, func, args, req, res) {
+/**
+ * @param {object} data
+ * @param {function} func
+ * @param {object} args
+ * @param {function} req
+ * @param {function} res
+ * @param {function} next
+ */
+function boundAutoparams(data, func, args, req, res, next) {
   return {
     type: constanst.AUTO_PARAMS,
     text: {
-      data: Object.assign({}, array[0], array[1], array[2]),
+      data: data,
       func: func,
-      args: args
+      args: args,
+      request: {
+        res: res,
+        req: req,
+        next: next
+      }
     }
   }
 }

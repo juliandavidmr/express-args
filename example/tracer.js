@@ -1,23 +1,29 @@
-var tracedux = require('../')
+var rex = require('../')
 
 var config = [{
-  type: tracedux.constants.LOGGER,
+  type: rex.constants.LOGGER,
   watch: 'name',
   exec: function (req, res, next) {
 
   }
 }, {
-  type: tracedux.constants.AUTO_PARAMS,
-  exec: function (id, name, lastname, fk) {
-    console.log("Autoparams 1", id, name, lastname, fk)
+  type: rex.constants.AUTO_PARAMS,
+  exec: function (req, res, next, id, name, lastname, fk) {
+    console.log("Autoparams 1:", id, name, lastname, fk);
+    res.send("Middleware")
   }
 }, {
-  type: tracedux.constants.AUTO_PARAMS,
-  exec: function (id, name, lastname, fk) {
-    console.log("Autoparams 2", arguments)
+  type: rex.constants.AUTO_PARAMS,
+  exec: function (req, res, next, token) {
+    console.log("Autoparams 2:", token);
+    res.send('Token:' + token)
   }
 }]
 
-tracedux.conf(config);
+rex.conf(config);
 
-module.exports = tracedux;
+rex.store.subscribe(() => {
+  console.log("Actual state::", rex.store.getState())
+})
+
+module.exports = rex;

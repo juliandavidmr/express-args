@@ -12,4 +12,11 @@ router.get('/:name', function(req, res, next) {
 });
 
 
+/* GET home page. */
+router.post('/', function(req, res, next) {
+  res.send('Hello');
+});
+
+
+
 module.exports = router;
