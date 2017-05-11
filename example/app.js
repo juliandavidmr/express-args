@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var conf_rex = require('./tracer')
+var express_args = require('./tracer')
 
 var app = express();
 
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(conf_rex.app);
+app.use(express_args.app);
 
 app.use('/', index);
 app.use('/users', users);

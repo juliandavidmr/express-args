@@ -12,9 +12,8 @@ let unsubscribe = store.subscribe(() =>
   console.log("Actual state:", store.getState())
 )
 */
-
 var options_data;
-var tracers = {}
+var tracers = {};
 
 function defineTracers(params) {
   for (var key in constants) {
@@ -38,13 +37,18 @@ function app(req, res, next) {
           actions.boundAutoparams(data, check.exec, check.args, req, res, next)
         )
         // log(check)
+      } else if (check.type === constants.TRACER) {
+        
+      } else if (check.type === constants.LOGGER) {
+        
       }
     })
   }
 }
 
 /**
- * @param {Array<any>} options
+ * @param {Array<object>} options
+ * @return {function}
  */
 function conf(options) {
   if (!options) {
@@ -59,17 +63,14 @@ function conf(options) {
     defineTracers(options_data);
     options_data.map(it => {
       if (it.type === constants.AUTO_PARAMS) {
-        var args = utils.gpn(it.exec);
-        it.args = args;
+        it.args = utils.gpn(it.exec);;
       }
       tracers[it.type].push(it);
     })
-    // console.log("TracerS:", JSON.stringify(tracers, null, 3))
   }
 
   return app
 }
-
 
 module.exports.constants = constants;
 module.exports.app = app;

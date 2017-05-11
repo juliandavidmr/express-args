@@ -35,7 +35,6 @@ function reducer(state, action) {
         _args_.push(args_request.next);
 
         // log('Data:', data)
-
         var _continue_ = true;
         for (var i = 3; i < args_func.length; i++) {
           var arg = args_func[i];

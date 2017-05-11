@@ -1,11 +1,14 @@
 {
-  "name": "tracedux",
+  "name": "express-args",
   "version": "0.0.1",
-  "description": "Predictable state in request parameters",
+  "description": "Predictable state requests. Autoparams function.",
   "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
+  "files": [
+    "src/",
+    "index.js",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +21,8 @@
     "express",
     "params",
     "states",
-    "watch"
+    "request",
+    "observable"
   ],
   "author": "@juliandavidmr",
   "license": "MIT",

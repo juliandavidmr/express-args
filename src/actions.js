@@ -28,6 +28,7 @@ function boundLogger(text) {
  * @param {function} req
  * @param {function} res
  * @param {function} next
+ * @return {object}
  */
 function boundAutoparams(data, func, args, req, res, next) {
   return {
