@@ -1,6 +1,6 @@
 {
   "name": "express-args",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Predictable state requests. Autoparams function.",
   "main": "index.js",
   "files": [

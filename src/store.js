@@ -44,6 +44,7 @@ function app(req, res, next) {
       }
     })
   }
+  next()
 }
 
 /**
